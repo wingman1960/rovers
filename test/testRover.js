@@ -14,7 +14,7 @@ afterEach(() => {
 describe('function rover constructor', () => {
     it('should return rover id and unempty rover list', () => {
         let rover = new Rover();
-        rover.id.should.equal(0);
+        rover.id.should.equal('0');
         Rover.getRovers().length.should.equal(1);
     });
     it('should return rover id and unempty rover list', () => {
@@ -36,6 +36,7 @@ describe('function getTerrain, setTerrain', () => {
 })
 describe('function getLocation, setLocation', () => {
     it('should return input from setLocation', () => {
+        Rover.setTerrain(5, 5);
         let rover = new Rover();
         let x = 3;
         let y = 1;
@@ -46,14 +47,15 @@ describe('function getLocation, setLocation', () => {
         yRover.should.equal(y);
         dirRover.should.equal(direction);
     });
-    it('should throw error when Terrain input is not integer', () => {
+    it('should throw error when location input is not integer', () => {
         let rover = new Rover();
         let x = 3.1;
         let y = 1;
         let direction = 'W';
         assert.throws(function () { rover.setLocation(x, y, direction) }, Error, "Rover setLocation: location coordinate must be interger!");
     });
-    it('should throw error when Terrain input direction is not N E S or W', () => {
+    it('should throw error when location input direction is not N E S or W', () => {
+        Rover.setTerrain(5, 5);
         let rover = new Rover();
         let x = 3;
         let y = 1;

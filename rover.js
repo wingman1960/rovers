@@ -11,10 +11,10 @@ class Rover {
 
   /** 
    * constructor
-   * @param {number| string} id The id of the rover; default the length of the roverList prior instantiation
+   * @param {string} id The id of the rover; default the length of the roverList prior instantiation
   */
   constructor(id) {
-    if (id == undefined) this.id = roverList.length
+    if (id == undefined) this.id = roverList.length.toString();
     else this.id = id;
     roverList.push(this);
   }
