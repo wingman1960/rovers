@@ -1,35 +1,57 @@
 'use strict'
 var Rover = require("./rover");
 
-
+let inputString = '';
 process.stdin.setEncoding('utf8');
-
-let inputString=[];
-let currentLine = 0;
 process.stdin.on('readable', () => {
     const chunk = process.stdin.read();
-    inputString.push(chunk);
     if (chunk !== null) {
-    process.stdout.write(`data: ${chunk}`);
-  }
+        inputString = chunk;
+    }
 });
-
+// run main when reaches eof
 process.stdin.on('end', () => {
-  process.stdout.write('end');
-  main();
+    main();
 });
-
-function readLine() {
-    return inputString[currentLine++];
-};
 
 function main() {
-    let line = readLine()
-    let array = line.split()
-    console.log(array);
-    Rover.setTerrain(5,5);
-    console.log(Rover.getTerrain())
+    let inputList = inputString.trim('\n').split('\n').map(str => str.trim())
+    console.log(inputList)
+    let commandList = [];
+    let roverList = [];
+    for (let i = 0; i < inputList.length;i++){
+        if (i == 0){
+            let xTerrain;
+            let yTerrain;
+            [xTerrain,yTerrain] = inputList[i].split(' ');
+            Rover.setTerrain(parseInt(xTerrain), parseInt(yTerrain));
+        }
+        else{
+            if(i % 2 == 1){
+                let [x,y,direction] = inputList[i].split(' ');
+                // initate rover and set the respective location
+                new Rover().setLocation(parseInt(x),parseInt(y),direction);
+            }
+            else{
+                commandList.push(inputList[i]);
+            }
+        }
+    }
+    // Pass the command to rovers starting from the 1st rover defined the input file
+    roverList = Rover.getRovers();
+    console.log(roverList)
+    for (let i = 0; i < roverList.length; i++){
+        console.log(commandList[i]);
+        for( let command of commandList[i]){
+            console.log(command)
+            roverList[i].commandAssign(command);
+            console.log(roverList[i])
+        }
+    }
 
+    // Rover.setTerrain(5, 5);
+    // console.log(Rover.getTerrain())
+    console.log(Rover.getRovers())
 };
 
 
