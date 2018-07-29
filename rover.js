@@ -9,11 +9,16 @@ let yTerrain = 0;
 let roverList = []
 class Rover {
 
+  /** 
+   * constructor
+   * @param {number| string} id The id of the rover; default the length of the roverList prior instantiation
+  */
   constructor(id) {
     if (id == undefined) this.id = roverList.length
     else this.id = id;
     roverList.push(this);
   }
+
   /** 
    * Set the top right hand corner of the terrain; the lower left corner is presume to be (0,0)
    * @param {number} x The x coordinate of top right hand corner of the terrain
@@ -23,6 +28,7 @@ class Rover {
     xTerrain = x;
     yTerrain = y;
   }
+
   /**  
    * Return the top right hand corner of the terrain; the lower left corner is presume to be (0,0)
   */
@@ -30,9 +36,20 @@ class Rover {
     return [xTerrain, yTerrain];
   }
 
+  /**  
+   * Return the list of rovers initiated
+  */
   static getRovers() {
     return roverList;
   }
+
+  /**  
+   * reset the list of rovers to empty
+  */
+  static deleteRovers(){
+    roverList = [];
+  }
+
   /**  
    * Set the location of the rover
    * @param {number} x The x coordinate of rover
@@ -40,10 +57,19 @@ class Rover {
    * @param {string} direction The direction of rover
   */
   setLocation(x, y, direction) {
-    this.x = x;
-    this.y = y;
-    this.direction = direction;
+    if (Number.isInteger(x) && Number.isInteger(y) && !this.constructor.checkOutTerrain(x,y)){
+      this.x = x;
+      this.y = y;
+    } else {
+      throw new Error (" Rover setLocation: location coordinate must be interger!")
+    }
+    if (direction == 'N' || direction == 'E' || direction == 'S' || direction == 'W'){
+      this.direction = direction;
+    } else {
+      throw new Error (" Rover setLocation: direction must be either 'N','E','W' or 'S'!")
+    }
   }
+
   /**  
    * Get the current location of the rover
    */
@@ -56,14 +82,11 @@ class Rover {
    * @param {number} x The x coordinate of the input
    * @param {number} y The y coordinate of the input
    */
-  static checkBoundary(x, y) {
-    if (x < 0 || x > this.xTerrain) {
+  static checkOutTerrain(x, y) {
+    if (x < 0 || x > xTerrain || y < 0 || y > yTerrain) {
       throw new Error("Rover exceed terrain!");
     }
-
-    if (y < 0 || y > this.yTerrain) {
-      throw new Error("Rover exceed terrain!");
-    }
+    return false;
   }
 
   /**  
@@ -73,10 +96,12 @@ class Rover {
   */
   static checkCrash(x, y) {
     for (let rover of roverList) {
-      if (rover.getLocation() == [x, y]) {
+      let [xRover, yRover, dirRover] = rover.getLocation();
+      if (xRover == x && yRover == y) {
         throw new Error("Rover: Crashes ahead! stop advancing")
       }
     }
+    return false;
   }
 
   /**  
@@ -85,22 +110,22 @@ class Rover {
   advance() {
     switch (this.direction) {
       case 'N':
-        this.constructor.checkBoundary(this.x, this.y + 1);
+        this.constructor.checkOutTerrain(this.x, this.y + 1);
         this.constructor.checkCrash(this.x, this.y + 1);
         this.y += 1;
         break;
       case 'S':
-        this.constructor.checkBoundary(this.x, this.y - 1);
+        this.constructor.checkOutTerrain(this.x, this.y - 1);
         this.constructor.checkCrash(this.x, this.y - 1);
         this.y -= 1;
         break;
       case 'E':
-        this.constructor.checkBoundary(this.x + 1, this.y);
+        this.constructor.checkOutTerrain(this.x + 1, this.y);
         this.constructor.checkCrash(this.x + 1, this.y);
         this.x += 1;
         break;
       case 'W':
-        this.constructor.checkBoundary(this.x - 1, this.y);        
+        this.constructor.checkOutTerrain(this.x - 1, this.y);        
         this.constructor.checkCrash(this.x - 1, this.y);
         this.x -= 1;
         break;
@@ -132,7 +157,7 @@ class Rover {
         break;
       // this.direction = rotateRightMap[this.direction];
       case 'L':
-        this.rotateLeft()
+        this.rotateLeft();
         break;
       // this.direction = rotateLeftMap[this.direction];
       case 'M':
@@ -142,6 +167,5 @@ class Rover {
         throw new Error("Rover: invalid command, expecting 'R','L' or 'M'")
     }
   }
-
 }
 module.exports = Rover;
