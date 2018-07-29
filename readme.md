@@ -1,1 +1,1 @@
-node version: 8.11.2
+node version: 8.11.1
