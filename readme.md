@@ -1,15 +1,17 @@
-### Quickstart
+# Prerequisite
+### Node.js is the only global dependency for this project. Please ensure the Node.js version installed  = v8.11.1 by
 
-## Node.js is the only global dependency for this project. Please install ensure node version = 8.11.1 by
+    $ node -v
+    v8.11.1
 
-    node -v
-    npm install
-    npm start --loglevel silent
-### Testing
-Jasmine specs are located alongside the modules they're testing, and follow the naming convention *_spec.js.
-To run tests and rerun when files change:
-
-    npm test
+# Quickstart
+    $ npm install
+    $ npm start --loglevel silent
+# Testing
+Mocha and Chai are used for unit test and 
+Nyc are used for code coverage testing
+### To run the unit test and code coverage
+    $ npm test
 ### The Problem
 
 
