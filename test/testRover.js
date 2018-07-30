@@ -4,8 +4,7 @@ const chai = require('chai');
 const sinon = require('sinon');
 chai.should();
 let assert = chai.assert;
-// global variables
-let rover;
+
 
 afterEach(() => {
     Rover.deleteRovers();

@@ -75,5 +75,5 @@ In case when a move will make rovers collide or out of terrain, error will be th
 6. Since the problem state the the terrain coordiante as "top right hand corner" while (0,0) is "low left hand corner, I assume the input terrain coordinates are non-negative.
 7. All the rovers got deployed before any command is executed.
 
-## documentation
-The documentations of rover.js is rest in [./doc](./doc/Rover.html) which are generated using jsdoc
+## Documentations
+The documentations of class Rover is rest in [./doc](./doc) (Rover.html) which are generated using jsdoc
