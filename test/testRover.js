@@ -1,5 +1,5 @@
 'use strict'
-const Rover = require('../rover');
+const Rover = require('../lib/rover');
 const chai = require('chai');
 const sinon = require('sinon');
 chai.should();

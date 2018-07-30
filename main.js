@@ -1,6 +1,6 @@
 'use strict'
-const Rover = require("./rover");
-const InputChecker = require("./inputChecker")
+const Rover = require("./lib/rover");
+const InputChecker = require("./lib/inputChecker")
 const fs = require('fs')
 
 let inputString = '';
