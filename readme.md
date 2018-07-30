@@ -1,6 +1,6 @@
 # Rover Code Challenge
 ## Prerequisite
-##### Node.js is the only global dependency for this project. Please ensure the Node.js version installed  = v8.11.1 by
+##### Node.js is the only global dependency for this project. Please ensure the Node.js version you currently install/loaded is v8.11.1 by
 
     $ node -v
     v8.11.1
@@ -54,7 +54,7 @@ left corner and facing North.
 Assume that the square directly North from (x, y) is (x, y+1).
 
 ## Solution explanation:
-A classical OOP appoached is employed to tackle the problem. A class named Rover is defined with each instance acting as a rover.
+A classical OOP appoached is employed to tackle the problem. A class named Rover is defined with each instance acting as a rover, and functionality like rotate and advance forward defined as methods of the class.
 
 A module InputChecker is defined and used for the input format checking. 
 In order to be more realistic, the rover itself is responsible for the command checking, as signal will be interupted through the space of odyssey.
@@ -66,7 +66,7 @@ Currently the program will throw error and stop execution whenever
 
 In case when a move will make rovers collide or out of terrain, error will be thrown and current rover will stop. The next rover will continue to execute its assigned command.
 
-# Assumptions:
+## Assumptions:
 1. The rovers are all unit square with 2 sides parallel to x-axis
 2. The rovers are allow to stay on the boundary
 3. The coordinate given to the rovers are assume to be the centre of the rovers
@@ -74,3 +74,7 @@ In case when a move will make rovers collide or out of terrain, error will be th
 5. Coordinates of top right hand corner of the terrain can be float number
 6. Since the problem state the the terrain coordiante as "top right hand corner" while (0,0) is "low left hand corner, I assume the input terrain coordinates are non-negative.
 7. All the rovers got deployed before any command is executed.
+
+## documentation
+The documentations of rover.js is rest in ./doc which are generated using jsdoc
+[a relative link](./doc/Rover.html)
