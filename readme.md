@@ -76,5 +76,4 @@ In case when a move will make rovers collide or out of terrain, error will be th
 7. All the rovers got deployed before any command is executed.
 
 ## documentation
-The documentations of rover.js is rest in ./doc which are generated using jsdoc
-[a relative link](./doc/Rover.html)
+The documentations of rover.js is rest in [./doc](./doc/Rover.html) which are generated using jsdoc
