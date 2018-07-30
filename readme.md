@@ -6,8 +6,10 @@
     v8.11.1
 
 ## Quickstart
+
     $ npm install
     $ node main.js < input.txt
+
 where input.txt is the txt file with the following format as stated in the problem:
     
     5 5
@@ -17,9 +19,11 @@ where input.txt is the txt file with the following format as stated in the probl
     MMRMMRMRRM
 
 ## Testing
-Mocha and Chai are used for unit test and 
-Nyc are used for code coverage testing
+Lib Mocha and Chai are used for unit test; \
+Lib Sinon is used for mock stub; \
+Lib Nyc is used for code coverage testing.
 ### To run the unit test and code coverage:
+
     $ npm test
 ### The Problem
 
