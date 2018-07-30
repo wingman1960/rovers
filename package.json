@@ -1,7 +1,7 @@
 {
   "name": "worldwirecc",
   "version": "1.0.0",
-  "description": "worldwire coding challenge",
+  "description": "Worldwire coding challenge",
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha -t 0 --recursive"

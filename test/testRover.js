@@ -1,7 +1,7 @@
 'use strict'
-const Rover = require('../rover')
+const Rover = require('../rover');
 const chai = require('chai');
-const sinon = require('sinon')
+const sinon = require('sinon');
 chai.should();
 let assert = chai.assert;
 // global variables
@@ -24,6 +24,7 @@ describe('function rover constructor', () => {
         Rover.getRovers().length.should.equal(2);
     });
 })
+
 describe('function getTerrain, setTerrain', () => {
     it('should return input from setTerrain', () => {
         let x = 1;
@@ -34,6 +35,7 @@ describe('function getTerrain, setTerrain', () => {
         yTerrain.should.equal(y);
     });
 })
+
 describe('function getLocation, setLocation', () => {
     it('should return input from setLocation', () => {
         Rover.setTerrain(5, 5);
@@ -63,6 +65,7 @@ describe('function getLocation, setLocation', () => {
         assert.throws(function () { rover.setLocation(x, y, direction) }, Error, "Rover setLocation: direction must be either 'N','E','W' or 'S'!");
     });
 })
+
 describe('function checkOutTerrain', () => {
     before(() => {
         Rover.setTerrain(4, 3);
@@ -71,7 +74,7 @@ describe('function checkOutTerrain', () => {
         Rover.checkOutTerrain(1, 2).should.equal(false);
     });
     it('should throw error with x y exceed terrain', () => {
-        assert.throws(function () { Rover.checkOutTerrain(5.1, 5.0) }, Error, "Rover exceed terrain!")
+        assert.throws(function () { Rover.checkOutTerrain(5.1, 5.0) }, Error, "Rover exceed terrain!");
     });
 })
 
@@ -84,7 +87,7 @@ describe('function checkCrash', () => {
         Rover.checkCrash(1, 3).should.equal(false);
     });
     it('should throw error with x y equal rover location', () => {
-        assert.throws(function () { Rover.checkCrash(1, 2) }, Error, "Rover: Crashes ahead! stop advancing")
+        assert.throws(function () { Rover.checkCrash(1, 2) }, Error, "Rover: Crashes ahead! stop advancing");
     });
 })
 
@@ -169,26 +172,25 @@ describe('function commandAssign', () => {
         // replace function with mock stub function
         let rover = new Rover()
         let stub = sinon.stub(rover, 'advance');
-        rover.commandAssign('M')
+        rover.commandAssign('M');
         sinon.assert.calledOnce(stub);
     });
     it('should call rotateLeft', () => {
         // replace funciotn with mock stub function
-        let rover = new Rover()
+        let rover = new Rover();
         let stub = sinon.stub(rover, 'rotateLeft');
-        rover.commandAssign('L')
+        rover.commandAssign('L');
         sinon.assert.calledOnce(stub);
     });
     it('should rotateRight', () => {
         // replace funciotn with mock stub function
-        let rover = new Rover()
+        let rover = new Rover();
         let stub = sinon.stub(rover, 'rotateRight');
-        rover.commandAssign('R')
+        rover.commandAssign('R');
         sinon.assert.calledOnce(stub);
     });
     it('should throw error', () => {
-        let rover = new Rover()
-        assert.throws(function () { rover.commandAssign('A') }, Error, "Rover: invalid command, expecting 'R','L' or 'M'")
-        
+        let rover = new Rover();
+        assert.throws(function () { rover.commandAssign('A') }, Error, "Rover: invalid command, expecting 'R','L' or 'M'");
     });
 })
