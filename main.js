@@ -1,5 +1,6 @@
 'use strict'
 const Rover = require("./rover");
+const InputChecker = require("./inputChecker")
 const fs = require('fs')
 
 let inputString = '';
@@ -17,24 +18,44 @@ process.stdin.on('end', () => {
 
 function main() {
     let inputList = inputString.trim('\n').split('\n').map(str => str.trim())
+    if ((inputList.length % 2) != 1) {
+        console.log("Error: Input must be 1 line of terrain top right hand corner coordinate, follow by 2 lines for each rover(one line of location and one line of command)!");
+        return;
+    }
     let commandList = [];
     let roverList = [];
     for (let i = 0; i < inputList.length; i++) {
-        if (i == 0) {
-            let xTerrain;
-            let yTerrain;
-            [xTerrain, yTerrain] = inputList[i].split(' ');
-            Rover.setTerrain(parseInt(xTerrain), parseInt(yTerrain));
-        }
-        else {
-            if (i % 2 == 1) {
-                let [x, y, direction] = inputList[i].split(' ');
-                // initate rover and set the respective location
-                new Rover().setLocation(parseInt(x), parseInt(y), direction);
+        try {
+            // the first line of the input
+            if (i == 0) {
+                let xTerrain;
+                let yTerrain;
+                [xTerrain, yTerrain] = InputChecker.inputTerrain(inputList[i]);
+                // [xTerrain, yTerrain] = inputList[i].split(' ');
+                Rover.setTerrain(parseFloat(xTerrain), parseFloat(yTerrain));
             }
+            // 2nd line onwards of the input
             else {
-                commandList.push(inputList[i]);
+                if (i % 2 == 1) {
+                    let [x, y, direction] = InputChecker.inputRover(inputList[i]);
+                    // let [x, y, direction] = inputList[i].split(' ');
+                    // initate rover and set the respective location
+                    try {
+                        new Rover().setLocation(parseInt(x), parseInt(y), direction);
+                    } catch (e) {
+                        console.log(e.toString());
+                        console.log("Error: line " + i)
+                        return;
+                    }
+                }
+                else {
+                    commandList.push(inputList[i]);
+                }
             }
+        }catch(e){
+            console.log(e.toString());
+            console.log("Error: line " + (i+1));
+            break;
         }
     }
     // Pass the command to rovers starting from the 1st rover defined the input file
@@ -45,7 +66,8 @@ function main() {
                 roverList[i].commandAssign(command);
 
             } catch (e) {
-                console.debug(e)
+                console.log(e.toString());
+                console.log("Error: line " + (i+1));
             }
         }
     }

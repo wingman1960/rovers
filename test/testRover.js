@@ -87,7 +87,7 @@ describe('function checkCrash', () => {
         Rover.checkCrash(1, 3).should.equal(false);
     });
     it('should throw error with x y equal rover location', () => {
-        assert.throws(function () { Rover.checkCrash(1, 2) }, Error, "Rover: Crashes ahead! stop advancing");
+        assert.throws(function () { Rover.checkCrash(1, 2) }, Error, "Rover: Crashes ahead! Stop!");
     });
 })
 

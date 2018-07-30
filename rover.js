@@ -1,6 +1,6 @@
 'use strict';
 
-// rotation mapping, after some consideration this approach shall be the fastest and less error prone.
+// rotation mapping for rovers rotation, this approach shall be the fastest and less error prone.
 const rotateRightMap = { 'N': 'E', 'E': 'S', 'S': 'W', 'W': 'N' };
 const rotateLeftMap = { 'N': 'W', 'E': 'N', 'S': 'E', 'W': 'S' };
 // static variables
@@ -31,6 +31,7 @@ class Rover {
 
   /**  
    * Return the top right hand corner of the terrain; the lower left corner is presume to be (0,0)
+   * @return {[number,number]}  the top right hand corner of the terrain
   */
   static getTerrain() {
     return [xTerrain, yTerrain];
@@ -38,6 +39,8 @@ class Rover {
 
   /**  
    * Return the list of rovers initiated
+   * @return {Rover[]} list of rovers
+
   */
   static getRovers() {
     return roverList;
@@ -46,7 +49,7 @@ class Rover {
   /**  
    * reset the list of rovers to empty
   */
-  static deleteRovers(){
+  static deleteRovers() {
     roverList = [];
   }
 
@@ -57,21 +60,22 @@ class Rover {
    * @param {string} direction The direction of rover
   */
   setLocation(x, y, direction) {
-    if (Number.isInteger(x) && Number.isInteger(y) && !this.constructor.checkOutTerrain(x,y)){
+    if (Number.isInteger(x) && Number.isInteger(y) && !this.constructor.checkOutTerrain(x, y) && !this.constructor.checkCrash(x, y)) {
       this.x = x;
       this.y = y;
     } else {
-      throw new Error (" Rover setLocation: location coordinate must be interger!")
+      throw new Error(" Rover setLocation: location coordinate must be interger!")
     }
-    if (direction == 'N' || direction == 'E' || direction == 'S' || direction == 'W'){
+    if (direction == 'N' || direction == 'E' || direction == 'S' || direction == 'W') {
       this.direction = direction;
     } else {
-      throw new Error (" Rover setLocation: direction must be either 'N','E','W' or 'S'!")
+      throw new Error(" Rover setLocation: direction must be either 'N','E','W' or 'S'!")
     }
   }
 
   /**  
    * Get the current location of the rover
+   * @return {[number,number,string]} location of rover
    */
   getLocation() {
     return [this.x, this.y, this.direction];
@@ -98,7 +102,7 @@ class Rover {
     for (let rover of roverList) {
       let [xRover, yRover, dirRover] = rover.getLocation();
       if (xRover == x && yRover == y) {
-        throw new Error("Rover: Crashes ahead! stop advancing")
+        throw new Error("Rover: Crashes ahead! Stop!")
       }
     }
     return false;
@@ -125,7 +129,7 @@ class Rover {
         this.x += 1;
         break;
       case 'W':
-        this.constructor.checkOutTerrain(this.x - 1, this.y);        
+        this.constructor.checkOutTerrain(this.x - 1, this.y);
         this.constructor.checkCrash(this.x - 1, this.y);
         this.x -= 1;
         break;
