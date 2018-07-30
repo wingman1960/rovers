@@ -1,0 +1,1 @@
+zip -r codeChallenge.zip main.js ./lib package.json readme.md ./test

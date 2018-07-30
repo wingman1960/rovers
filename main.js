@@ -1,7 +1,6 @@
 'use strict'
 const Rover = require("./lib/rover");
 const InputChecker = require("./lib/inputChecker")
-const fs = require('fs')
 
 let inputString = '';
 process.stdin.setEncoding('utf8');
@@ -31,16 +30,14 @@ function main() {
                 let xTerrain;
                 let yTerrain;
                 [xTerrain, yTerrain] = InputChecker.inputTerrain(inputList[i]);
-                // [xTerrain, yTerrain] = inputList[i].split(' ');
                 Rover.setTerrain(parseFloat(xTerrain), parseFloat(yTerrain));
             }
             // 2nd line onwards of the input
             else {
                 if (i % 2 == 1) {
                     let [x, y, direction] = InputChecker.inputRover(inputList[i]);
-                    // let [x, y, direction] = inputList[i].split(' ');
-                    // initate rover and set the respective location
                     try {
+                        // initate rover and set the respective location
                         new Rover().setLocation(parseInt(x), parseInt(y), direction);
                     } catch (e) {
                         console.log(e.toString());
