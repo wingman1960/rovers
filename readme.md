@@ -1,20 +1,22 @@
-# Prerequisite
+# Rover Code Challenge
+## Prerequisite
 ### Node.js is the only global dependency for this project. Please ensure the Node.js version installed  = v8.11.1 by
 
     $ node -v
     v8.11.1
 
-# Quickstart
+## Quickstart
     $ npm install
     $ node main.js < input.txt
 where input.txt is the txt file with the following format as stated in the problem:
+    
     5 5
     1 2 N
     LMLMLMLMM
     3 3 E
     MMRMMRMRRM
 
-# Testing
+## Testing
 Mocha and Chai are used for unit test and 
 Nyc are used for code coverage testing
 ### To run the unit test and code coverage:
