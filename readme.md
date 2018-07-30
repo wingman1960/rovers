@@ -6,11 +6,18 @@
 
 # Quickstart
     $ npm install
-    $ npm start --loglevel silent
+    $ node main.js < input.txt
+where input.txt is the txt file with the following format as stated in the problem:
+    5 5
+    1 2 N
+    LMLMLMLMM
+    3 3 E
+    MMRMMRMRRM
+
 # Testing
 Mocha and Chai are used for unit test and 
 Nyc are used for code coverage testing
-### To run the unit test and code coverage
+### To run the unit test and code coverage:
     $ npm test
 ### The Problem
 
